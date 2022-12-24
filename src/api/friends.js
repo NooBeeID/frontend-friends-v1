@@ -12,6 +12,8 @@ export function follow({ following_id }) {
 
 export function unfollow({ following_id }) {
     return agent.delete('/follow', {
-        following_id,
+        data: {
+            following_id,
+        },
     });
 }
