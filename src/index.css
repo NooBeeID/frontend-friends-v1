@@ -9,3 +9,7 @@ body {
 #root {
     @apply min-h-screen;
 }
+
+.active-link > span > img {
+    @apply bg-yellow-500 rounded-lg;
+}

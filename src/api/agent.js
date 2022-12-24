@@ -2,7 +2,7 @@ import axios from 'axios';
 import localforage from 'localforage';
 
 const agent = axios.create({
-    baseURL: 'http://localhost:4444/v1/',
+    baseURL: 'http://127.0.0.1:4444/v1/',
 });
 
 agent.interceptors.request.use(async config => {

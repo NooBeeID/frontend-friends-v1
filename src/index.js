@@ -8,6 +8,7 @@ import {
 import reportWebVitals from './reportWebVitals';
 
 import Login from './routes/login';
+import Register from './routes/register';
 import HomeLayout from './routes/home/layout';
 import Home from './routes/home';
 import Contacts from './routes/home/contacts';
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Login />
+    },
+    {
+        path: '/register',
+        element: <Register />
     },
     {
         path: '/dashboard',

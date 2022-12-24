@@ -8,13 +8,13 @@ export function login({ email, password }) {
 }
 
 export function register({ email, password, img_url }) {
-    return agent.post('/auth/login', {
+    return agent.post('/auth/register', {
         email, password, img_url,
     });
 }
 
 export function search({ email }) {
-    return axios.post('http://127.0.0.1:4444/v1/auth/search', {
+    return agent.post('/auth/search', {
         email,
     });
 }

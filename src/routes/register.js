@@ -1,19 +1,19 @@
 import localforage from "localforage";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from '../api/auth'
+import { register } from '../api/auth'
 
-function Login() {
+function Register() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [photoUrl, setPhotoUrl] = useState('');
 
     const navigate = useNavigate();
 
-    const authenticate = async () => {
+    const registration = async () => {
         try {
-            const { data } = await login({ email, password: pass }); 
-            localforage.setItem('token', data.payload.token); 
-            navigate('/dashboard/');
+            await register({ email, password: pass, img_url: photoUrl }); 
+            navigate('/');
         } catch(err) {
             console.log(err);
         }
@@ -24,7 +24,7 @@ function Login() {
             <div className="bg-white p-8 w-1/4 flex flex-col justify-center">
                 <div className="mb-4 flex flex-col">
                     <h1 className="text-3xl font-bold">NBID Friends</h1>
-                    <p>Explore</p>
+                    <p>Daftar dan cari teman terbaikmu disini</p>
                 </div>
                 <div className="mb-4">
                     <label className="font-bold">
@@ -45,16 +45,26 @@ function Login() {
                         />
                     </label>
                 </div>
+                <div className="mb-4">
+                    <label className="font-bold">
+                        Photo URL
+                        <input
+                            type="text"
+                            className="w-full p-2 font-normal border-2 border-gray-400 rounded-lg"
+                            onChange={({ target }) => setPhotoUrl(target.value)}
+                        />
+                    </label>
+                </div>
                 <div className="flex flex-col items-center">
                     <button
                         className="p-2 bg-yellow-400 w-full rounded-lg"
-                        onClick={() => authenticate()}
+                        onClick={() => registration()}
                     >
-                        Login
+                        Register
                     </button>
                     <span className="mt-8 mb-4">Atau</span>
-                    <Link to="/register" className="w-full">
-                        <button className="p-2 bg-gray-200 w-full rounded-lg">Register</button>
+                    <Link className="w-full" to="/">
+                        <button className="p-2 bg-gray-200 w-full rounded-lg">Login</button>
                     </Link>
                 </div> 
             </div>
@@ -62,4 +72,4 @@ function Login() {
     );
 }
 
-export default Login
+export default Register
