@@ -2,7 +2,7 @@ import axios from 'axios';
 import localforage from 'localforage';
 
 const agent = axios.create({
-    baseURL: 'https://nbid-friends-v1-production.up.railway.app/v1',
+    baseURL: 'https://nbid-friends-v1-production.up.railway.app/v1/',
 });
 
 agent.interceptors.request.use(async config => {

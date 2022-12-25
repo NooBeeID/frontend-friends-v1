@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { friends } from "../../api/friends";
+import { useCallback, useEffect, useState } from "react";
+import { friends, unfollow } from "../../api/friends";
 
 function ContactCard({ email, image, onFollow, onUnfollow, followed }) {
     return (
@@ -17,14 +17,21 @@ function ContactCard({ email, image, onFollow, onUnfollow, followed }) {
 
 export default function Contacts() {
     const [contacts, setContacts] = useState([]);
-    useEffect(() => {
-        async function fetch() {
-            const { data } = await friends();
 
-            setContacts(data.payload);
-        }
-        fetch();
+    const fetch = useCallback(async () => {
+        const { data } = await friends();
+
+        setContacts(data.payload);
     }, []);
+
+    useEffect(() => {
+        fetch();
+    }, [fetch]);
+
+    const handleUnfollow = async ({ following_id }) => {
+        await unfollow({ following_id });
+        fetch();
+    };
     return (
         <div className="flex gap-4">
             {contacts.map((contact) => (
@@ -32,6 +39,7 @@ export default function Contacts() {
                     image={contact.img_url}
                     email={contact.email}
                     followed
+                    onUnfollow={() => handleUnfollow({ following_id: contact.id })}
                 /> 
             ))}
         </div>
